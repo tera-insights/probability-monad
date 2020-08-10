@@ -3,3 +3,8 @@ target
 *.class
 .lib
 project/*.jar
+
+# ide-specific
+.metals
+.bloop
+project/metals.sbt

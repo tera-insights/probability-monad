@@ -1,6 +1,6 @@
 name := "probability-monad" // insert clever name here
 
-scalaVersion := "2.12.10"
+scalaVersion := "2.13.1"
 
 crossScalaVersions := Seq("2.10.6", "2.11.11", "2.12.10")
 
@@ -66,3 +66,10 @@ initialCommands := """
                 |import probability_monad._
                 |import probability_monad.Distribution._
                 |import probability_monad.Examples._""".stripMargin('|')
+
+libraryDependencies += "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.6"
+libraryDependencies += "org.scala-lang.modules" %% "scala-parallel-collections" % "0.2.0"
+// build.sbt
+scalafixDependencies in ThisBuild += "org.scala-lang.modules" %% "scala-collection-migrations" % "2.1.4"
+addCompilerPlugin(scalafixSemanticdb)
+scalacOptions ++= List("-Yrangepos", "-P:semanticdb:synthetics:on")

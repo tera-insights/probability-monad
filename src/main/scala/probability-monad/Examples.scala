@@ -2,6 +2,7 @@ package probability_monad
 
 object Examples {
   import Distribution._
+  import scala.math.Ordering.Double.TotalOrdering
 
   /**
    * If you flip a coin and it comes up heads 10 times, what is the probability you have
@@ -635,6 +636,7 @@ object Examples {
     p.map(t => (e1(t), e2(t)))
      .histData.toList
      .groupBy{ case ((e1, e2), pr) => e1 }
+     .view
      .mapValues(vs => {
         vs.map{ case ((e1, e2), pr) => (e2, pr) }
      })
@@ -652,7 +654,7 @@ object Examples {
      println("independent with probability %.2f%%".format(chi2test(p.map(x => (e1(x), e2(x)))) * 100))
   }
 
-  def doPGM {
+  def doPGM: Unit = {
     println()
     println("** X and Y are independent: p(y|x) = ")
     dep(pgm)(_.x, _.y)
@@ -781,7 +783,7 @@ object Examples {
 
   def runCentralLimitTheorem3 = centralLimitTheorem3(normal, uniform, 100, 200)
 
-  def runKSTest {
+  def runKSTest: Unit = {
     println("The Kolmogorov-Smirnov test. Values over 1.95 indicate that the distributions are probably different.")
     println()
     println("comparing 2 normal distributions: " + ksTest(normal, normal))
